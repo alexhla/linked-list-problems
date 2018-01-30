@@ -1,4 +1,4 @@
-// C program to insert node at nth index
+// C program to insert node into a sorted list
 
 #include <stdio.h>  // printf()
 #include <stdlib.h> // malloc(), strtol()
@@ -57,18 +57,17 @@ int getNth(struct node* head, int index){
 }
 
 
-void insertAtNthIndex(struct node** headRef, int index, int dataToInsert){
+void insertIntoSortedList(struct node** headRef, int dataToInsert){
 
 	struct node* current = *headRef;
-	int i = 0;
 
-	if(index == 0)
+	if(current == NULL || dataToInsert <= current->data)
 		push(headRef, dataToInsert);
 	else {
-		for(i = 0; i< (index-1); i++){
+		while(current->next != NULL){
+			if(dataToInsert <= current->next->data)
+				break;
 			current = current->next;
-			if(current == NULL)
-				return;
 		}
 		push(&(current->next), dataToInsert);
 	}
@@ -76,12 +75,11 @@ void insertAtNthIndex(struct node** headRef, int index, int dataToInsert){
 
 
 
-
 int main(int argc, char** argv){
 	struct node* head = NULL; // list is currently empty, thus initialize a NULL pointer as its head
 	push(&head, 101);         // pass in the address of the head pointer, and the value to push onto the list
-	push(&head, 33);          // must pass in the address of the head pointer (reference pointer) so that the callee can alter
-	push(&head, 96);          // the caller's memory, since the head pointer will change with each push (onto the top of the list)
+	push(&head, 96);          // must pass in the address of the head pointer (reference pointer) so that the callee can alter
+	push(&head, 33);          // the caller's memory, since the head pointer will change with each push (onto the top of the list)
 	push(&head, 21);          // otherwise sending the head pointer itself will pass by value creating a local copy in the push function
 
 	printf("node-0 is %d\n", getNth(head, 0));
@@ -96,7 +94,7 @@ int main(int argc, char** argv){
 	else
 		commandLineArg = 0;
 
-	insertAtNthIndex(&head, commandLineArg, 77);
+	insertIntoSortedList(&head, commandLineArg);
 	printf("node-0 is %d\n", getNth(head, 0));
 	printf("node-1 is %d\n", getNth(head, 1));
 	printf("node-2 is %d\n", getNth(head, 2));
