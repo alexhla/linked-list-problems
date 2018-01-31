@@ -1,4 +1,4 @@
-# OOP Python program to insert node into a sorted list
+# OOP Python program to sort an unsorted list
 
 from sys import argv
 
@@ -44,12 +44,21 @@ class linkedList:
 			current.next = newNode		
 
 
+	def sortList(self):
+		current = self.head
+		nextNode = None
+
+		while(current is not None):
+			nextNode = current.next
+			mySortedList.insertIntoSortedList(current.data)
+			current = nextNode
+
 
 myList = linkedList()
-myList.push(101)
-myList.push(96)
 myList.push(33)
 myList.push(21)
+myList.push(101)
+myList.push(96)
 
 print("node-0 is {}" .format(myList.getNth(0)))
 print("node-1 is {}" .format(myList.getNth(1)))
@@ -57,15 +66,12 @@ print("node-2 is {}" .format(myList.getNth(2)))
 print("node-3 is {}" .format(myList.getNth(3)))
 print("node-4 is {}\n" .format(myList.getNth(4)))
 
-if len(argv) > 1:					# if the user has passed in an argument use it as the script option
-	commandLineArg = int(argv[1])
-else:
-	commandLineArg = 0
 
-myList.insertIntoSortedList(commandLineArg)
+mySortedList = linkedList()
+myList.sortList()
 
-print("node-0 is {}" .format(myList.getNth(0)))
-print("node-1 is {}" .format(myList.getNth(1)))
-print("node-2 is {}" .format(myList.getNth(2)))
-print("node-3 is {}" .format(myList.getNth(3)))
-print("node-4 is {}" .format(myList.getNth(4)))
+print("node-0 is {}" .format(mySortedList.getNth(0)))
+print("node-1 is {}" .format(mySortedList.getNth(1)))
+print("node-2 is {}" .format(mySortedList.getNth(2)))
+print("node-3 is {}" .format(mySortedList.getNth(3)))
+print("node-4 is {}" .format(mySortedList.getNth(4)))
